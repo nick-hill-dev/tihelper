@@ -1,0 +1,183 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Verdana';
+    font-size: 12pt;
+    background: #fff;
+    margin: 0;
+    margin-bottom: 120pt;
+    padding: 0;
+}
+
+#title, #roundNumber {
+    font-size: 40pt;
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 12pt;
+    margin: 0;
+}
+
+#roundNumber {
+    font-size: 32pt;
+}
+
+#round {
+    text-align: center;
+    margin-top: 24pt;
+    margin-bottom: 40pt;
+}
+
+#previousRoundButton, #nextRoundButton {
+    cursor: pointer;
+}
+
+#topContainer {
+    background: rgb(209, 201, 212);
+    padding-bottom: 8pt;
+    border-bottom: 2pt solid black;
+}
+
+span {
+    margin-left: 5pt;
+    margin-right: 5pt;
+}
+
+span:focus {
+    text-decoration: underline;
+}
+
+#roundNumber {
+    margin-bottom: 20pt;
+    font-weight: normal;
+}
+
+.phaseBlocks, .actionBlocks, .tacticalActionBlocks {
+    text-align: center;
+    line-height: 50pt;
+}
+
+.actionBlocks {
+    border-bottom: 2pt solid black;
+}
+
+span:hover {
+    filter: brightness(150%);
+}
+
+#strategyPhase, #actionPhase, #statusPhase, #agendaPhase {
+    padding: 4pt;
+    font-size: 24pt;
+    font-weight: bold;
+    border: 4pt solid black;
+    border-radius: 4pt;
+    display: inline;
+    color: white;
+    cursor: pointer;
+    white-space: pre;
+}
+
+#strategyPhase {
+    border-color: rgb(104, 18, 18);
+    background-color: rgb(155, 31, 31);
+}
+
+#actionPhase {
+    border-color: rgb(2, 72, 105);
+    background-color: rgb(2, 123, 179);
+}
+
+#statusPhase {
+    border-color: rgb(87, 105, 8);
+    background-color: rgb(123, 148, 11);
+}
+
+#agendaPhase {
+    border-color: rgb(18, 112, 30);
+    background-color: rgb(36, 194, 57);
+}
+
+.action {
+    padding: 4pt;
+    font-size: 20pt;
+    font-weight: bold;
+    background-color: rgb(188, 231, 255);
+    border: 2pt solid rgb(2, 123, 179);
+    border-radius: 4pt;
+    display: inline;
+    color: rgb(2, 123, 179);
+    cursor: pointer;
+    white-space: pre;
+}
+
+.actionStep {
+    padding: 4pt;
+    font-size: 20pt;
+    border: 1pt solid rgb(2, 123, 179);
+    border-radius: 4pt;
+    display: inline;
+    color: rgb(2, 123, 179);
+    background-color: white;
+    cursor: pointer;
+    white-space: pre;
+}
+
+p {
+    margin: 0;
+    font-size: 18pt;
+    margin-top: 12pt;
+    margin-bottom: 12pt;
+    text-align: center;
+    color: white;
+}
+
+ol {
+    margin-left: 24pt;
+    margin-right: 24pt;
+    list-style-position: inside;
+}
+
+li {
+    font-size: 18pt;
+    line-height: 1.5em;
+    margin-top: 15pt;
+    background: #ececec;
+    border: 1px solid #444;
+    border-radius: 8pt;
+    padding: 12pt;
+}
+
+.noteContainer {
+    border-bottom: 1px dotted black;
+    cursor: pointer;
+    font-style: italic;
+}
+
+.note {
+    visibility: collapse;
+    border: 1px dotted black;
+    z-index: 1;
+    position: relative;
+}
+  
+.noteContainer:hover, .note:hover {
+    visibility: visible;
+}
+
+[data-tooltip] {
+    font-size: 14pt;
+    text-decoration: none;
+    color: #fff;
+    border-bottom: 1px dotted white;
+}
+
+li [data-tooltip] {
+    color: black;
+    border-bottom: 1px dotted black;
+}

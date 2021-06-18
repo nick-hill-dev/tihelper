@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Twilight Imperium Helper</title>
+    <script src="ti.js"></script>
+    <link rel="stylesheet" type="text/css" href="ti.css" />
+    <link rel="stylesheet" type="text/css" href="tooltip.css" />
+    <link rel="shortcut icon" href="favicon.ico" /> 
+</head>
+
+<body>
+
+    <div id="topContainer">
+        <h1 id="title">Twilight Imperium</h1>
+
+        <h1 id="round">
+            <span id="previousRoundButton">&laquo;</span>
+            <span id="roundNumber">Round x</span>
+            <span id="nextRoundButton">&raquo;</span>
+        </h1>
+
+        <div class="phaseBlocks">
+            <span id="strategyPhase" tabindex="1">Strategy Phase</span>
+            <span id="actionPhase" tabindex="2">Action Phase</span>
+            <span id="statusPhase" tabindex="3">Status Phase</span>
+            <span id="agendaPhase" tabindex="4">Agenda Phase</span>
+        </div>
+    </div>
+
+    <div id="topPanels">
+
+        <div id="strategyPhasePanel">
+            <ol>
+                <li>
+                    <b>Choose strategy cards.</b> From speaker clockwise, everyone chooses one strategy card.<br />
+                    <span
+                        data-tooltip="If there are four players or less then once more in clockwise order everyone chooses a second strategy card.">Less
+                        than 5 players?</span>
+                </li>
+                <li>
+                    <b>Assign trade goods.</b> The speaker places one trade good on each unchosen card.
+                </li>
+            </ol>
+        </div>
+
+        <div id="actionPhasePanel">
+            <p>Repeat in initiative order until everyone has passed.</p>
+            <p>Every time it is your turn, perform only one of the following:</p>
+            <div class="actionBlocks">
+                <span class="action" id="tacticalAction" tabindex="5">Tactical Action</span>
+                <span class="action" id="strategicAction" tabindex="6">Strategic Action</span>
+                <span class="action" id="componentAction" tabindex="7">Component Action</span>
+                <span class="action" id="passAction" tabindex="8">Pass</span>
+            </div>
+
+            <div id="actionPanels">
+                <div id="defaultActionPanel">
+                    <p>You can also <span class="action" id="tradeAction">Trade</span> and still perform one of the above actions.</p>
+                    <p id="tradeHints">
+                        <span
+                            data-tooltip="During the active player’s turn, he may negotiate a transaction with one or more of his neighbours, even during a combat.">When</span>
+                        <span
+                            data-tooltip="As part of a transaction, the negotiating players may exchange any number of trade goods and commodities. Also promissory notes, even ones that were previously given to the player.">What</span>
+                        <span
+                            data-tooltip="The active player may negotiate only once with each of his neighbours per turn. After a transaction has been finalized, no other transactions may occur between those players that turn.">Once</span>
+                        <span
+                            data-tooltip="Transactions beyond a simple exchange of goods that are resolved immediately. The deal must be honoured.">Binding
+                            deals</span>
+                        <span
+                            data-tooltip="Transactions that are not resolved immediately, I.E. a request to do something in a future turn. Non-binding.">Non-binding
+                            deals</span>
+                        <span
+                            data-tooltip="Each player has five. A promissory note helps players negotiate with each other by creating an enforceable contract between them. A note can be offered as part of a transaction.">Offering
+                            promissory notes</span>
+                        <span
+                            data-tooltip="When a player resolves a promissory note, he reveals the card and resolves its text effect. Though some promissory notes will stay in play after they are resolved, a promissory note is usually returned to its original owner and may again be offered by that player as part of a transaction.">Resolving
+                            promissory notes</span>
+                    </p>
+                </div>
+
+                <div id="tacticalActionPanel">
+
+                    <p>Perform all of the following steps:</p>
+                    <div class="tacticalActionBlocks">
+                        <span class="actionStep" id="activationTactic" tabindex="9">Activation</span>
+                        <span class="actionStep" id="movementTactic" tabindex="10">Movement</span>
+                        <span class="actionStep" id="spaceCombatTactic" tabindex="11">Space Combat</span>
+                        <span class="actionStep" id="invasionTactic" tabindex="12">Invasion</span>
+                        <span class="actionStep" id="productionTactic" tabindex="13">Production</span>
+                    </div>
+
+                    <div id="tacticalActionPanels">
+                        <div id="activationTacticPanel">
+                            <ol>
+                                <li>
+                                    <b>Activate system.</b> Take a command token from your tactic pool and place it in a
+                                    system.<br />
+                                    <span
+                                        data-tooltip="A player cannot activate a system that already contains one of his command tokens, but he may activate a system that contains other players’ command tokens.">Note</span>
+                                </li>
+                            </ol>
+                        </div>
+                        <div id="movementTacticPanel">
+                            <p><i>Only if you want to, and if you can.</i></p>
+                            <ol>
+                                <li>
+                                    <b>Move into system.</b> Move your units into your activated system.<br />
+                                    <span
+                                        data-tooltip="A ship cannot pass through a system that contains another player’s ships (includeing fighters).">Blocking</span>
+                                    <span
+                                        data-tooltip="A player cannot move units out of a system that contains one of his command tokens.">Lockdown</span>
+                                    <span
+                                        data-tooltip="Units can be picked up on transit. However, a player cannot onboard units out of a system that contains one of his command tokens.">Pick
+                                        up</span>
+                                    <span
+                                        data-tooltip="The unit count of a player's units in the space area of a system cannot exceed the combined capacity of that player’s ships in that system.">Capacity</span>
+                                </li>
+                                <li>
+                                    <b>Watch out for hazards.</b> Make sure to handle special spacial features
+                                    appropriately.<br />
+                                    <span
+                                        data-tooltip="A ship cannot move through or into an asteroid field or supernova.">Asteroid
+                                        field or supernova</span>
+                                    <span
+                                        data-tooltip="A ship can move into a nebula but not through it. A ship moving out of a nebula has a move value of 1.">Nebula</span>
+                                    <span
+                                        data-tooltip="A ship moving out of a gravity rift has +1 move value. Roll a dice to determine if it survives (4+).">Gravity
+                                        rift</span>
+                                </li>
+                                <li>
+                                    <b>Space cannon.</b> Each player's units in the system may use their space cannon
+                                    abilities now, against
+                                    your ships.<br />
+                                    <span
+                                        data-tooltip="A player can use this ability at two different times: After the movement step of a tactical action, or during space cannon defense of an invasion.">When</span>
+                                    <span
+                                        data-tooltip="After the Movement step of a tactical action, all players can use the Space Cannon abilities of their units that are in the active system. The player whose units the ability was used against must assign these hits to ships in that system.">Info</span>
+                                </li>
+                            </ol>
+                        </div>
+                        <div id="spaceCombatTacticPanel">
+                            <p><i>Only if multiple players have ships in the active system.</i></p>
+                            <ol>
+                                <li>
+                                    <b>Anti-fighter barrage.</b> Each player's units can use their anti-fighter barrage
+                                    abilities.<br />
+                                    <span
+                                        data-tooltip="A player uses this ability during the Anti-Fighter Barrage step of the first round of space combat. These hits can only be assigned to fighters.">When</span>
+                                    <span
+                                        data-tooltip="Roll dice to determine whether or not the player's units are hit.">Resolution</span>
+                                </li>
+                                <li>
+                                    <b>Announce retreat.</b> Retreats must be announced in advance otherwise you cannot
+                                    retreat.<br />
+                                    <span
+                                        data-tooltip="If a player wishes to retreat with any of his ground forces that are on planets in the active system, he must move them from planets to the space area during this step.">Ground
+                                        forces</span>
+                                </li>
+                                <li>
+                                    <b>Make combat rolls.</b> Roll one die for each ship in the active system. When a
+                                    roll is equal to or higher than the unit's combat value, it produces a hit.<br />
+                                    <span
+                                        data-tooltip="Some units can make use of multiple dice (represented by burst icons).">Multiple
+                                        dice</span>
+                                </li>
+                                <li>
+                                    <b>Assign hits.</b> The victim of each hit is responsible for selecting the hit
+                                    ships, and then damaging or removing them from the board.
+                                </li>
+                                <li>
+                                    <b>Retreat.</b> If a retreat was announced, all your ships are moved to an adjacent
+                                    friendly system.<br />
+                                    <span
+                                        data-tooltip="The chosen system cannot contain ships that belong to another player and must contain either a planet he controls or at least one of his units; otherwise, the player cannot retreat.">Restriction</span>
+                                    <span
+                                        data-tooltip="If the chosen system does not contain one of that player’s command tokens, the player must place one token from his reinforcements in that system when he retreats.">Command
+                                        token</span>
+                                </li>
+                                <li>
+                                    <b>Repeat.</b> If both players have units remaining, resolve another round starting
+                                    at the &quot;<i>Announce retreat</i>&quot; step.
+                                </li>
+                            </ol>
+                        </div>
+                        <div id="invasionTacticPanel">
+                            <p><i>Only if you want to, and if you can.</i></p>
+                            <ol>
+                                <li>
+                                    <b>Bombardment.</b> You can destroy enemy ground forces using your units'
+                                    bombardment abilities.<br />
+                                    <span
+                                        data-tooltip="A player uses this ability during the Bombardment step of an invasion. These hits can only be assigned by the bombarded player to ground forces on the planet being bombarded.">When</span>
+                                    <span
+                                        data-tooltip="Roll dice to determine whether or not the player's units are hit.">Resolution</span>
+                                    <span
+                                        data-tooltip="If there are multiple planets in the system, the active player must choose which of his units in the system are bombarding which planets before rolling dice.">Explicit</span>
+                                    <span
+                                        data-tooltip="If a unit has the Planetary Shield ability, the planet where that unit is located is not an eligible target for other units' Bombardment abilities.">Planetary
+                                        shield</span>
+                                </li>
+                                <li>
+                                    <b>Commit ground forces.</b> Decide which ground forces you wish to land on which
+                                    planets and put them there.
+                                </li>
+                                <li>
+                                    <b>Space cannon defense.</b> Enemy PDS units can be used against you via space
+                                    cannon ability.<br />
+                                    <span
+                                        data-tooltip="A player can use this ability at two different times: After the movement step of a tactical action, or during space cannon defense of an invasion.">When</span>
+                                    <span
+                                        data-tooltip="During the Space Cannon Defense step of an invasion, the player who controls the planet being invaded can use the Space Cannon abilities of his units on that planet. The invading player must assign these hits to his ground forces that are invading the planet.">Info</span>
+                                    <span
+                                        data-tooltip="Roll dice to determine whether or not the player's units are hit.">Resolution</span>
+                                </li>
+                                <li>
+                                    <b>Ground combat.</b> If multiple players have ground forces on the same planet,
+                                    those players resolve a ground combat.<br />
+                                    <span
+                                        data-tooltip="You can choose in which order planetary ground combats are resolved.">Resolution
+                                        order</span>
+                                    <span
+                                        data-tooltip="Resolve them in rounds of the following steps: A. Make combat rolls, B. Assign hits, C. Repeat until there is a winner.">How
+                                        to resolve</span>
+                                </li>
+                                <li>
+                                    <b>Establish control.</b> Each invaded planet with one or more of your units on it
+                                    is assigned to you.<br />
+                                    <span data-tooltip="Enemy structures are destroyed.">Enemy structures</span>
+                                    <span data-tooltip="The card you obtain must be exhausted.">Exhaustion</span>
+                                </li>
+                            </ol>
+                        </div>
+                        <div id="productionTacticPanel">
+                            <p><i>Only if you want to, and if you can.</i></p>
+                            <ol>
+                                <li>
+                                    <b>Produce units.</b> Produce units using space docks present in your activated
+                                    system.<br />
+                                    <span
+                                        data-tooltip="Players always place ships in the space area of the system in which they were produced. Players always place ground forces on the planet that contains the space dock that produced them.">Location</span>
+                                    <span
+                                        data-tooltip="Each space dock’s production ability has avalue that limits the number of units that it can produce during this step. A player cannot produce more units than the combined production values of his units in the active system.">Limits</span>
+                                    <span
+                                        data-tooltip="If a unit’s cost is accompanied by two icons, such as the cost values of fighters and infantry, the player receives two units for the indicated cost. When producing these units, each individual unit counts against the production limit.">2
+                                        for 1</span>
+                                    <span
+                                        data-tooltip="When a player wishes to produce a unit but has no units of that type available in his reinforcements, he may remove one of his units of that type from a system that does not contain one of his command tokens on the game board and return it to his reinforcements.">None
+                                        left?</span>
+                                    <span
+                                        data-tooltip="When a player produces a fighter or infantry unit, but has none in his reinforcements, he can use fighter or infantry tokens from the supply instead. These tokens function identically to plastic figures of that type; however, they must be accompanied by at least one plastic figure of that type that matches his color.">Tokens</span>
+                                    <span
+                                        data-tooltip="If a player’s space docks are in the same system as another player’s ships, those space docks are blockaded. Blockaded space docks cannot produce ships. They may, however, still produce ground forces.">Blockade</span>
+                                    <span
+                                        data-tooltip="You can spend trade goods to make up for a shortfall of resources.">Trade
+                                        goods</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="strategicActionPanel">
+                    <ol>
+                        <li>
+                            <i>You must have at least one unexhausted strategy cards to do this.</i>
+                        </li>
+                        <li>
+                            <b>Resolve primary effect.</b> Resolve the primary ability of your strategy card.<br />
+                            <span
+                                data-tooltip="If an action card begins with the word “Action,” it can be used as a component action during a player’s turn of the action phase.">Actions</span>
+                        </li>
+                        <li>
+                            <b>Resolve secondary effect.</b> Other players can resolve the secondary ability of your
+                            strategy card.
+                        </li>
+                        <li>
+                            <b>Exhaust.</b> Exhaust the strategy card to indicate it cannot be used again.
+                        </li>
+                    </ol>
+                </div>
+                <div id="componentActionPanel">
+                    <ol>
+                        <li>
+                            Perform an action described on one of your action cards.<br />
+                            <span
+                                data-tooltip="When an action card is used, the player using it reveals the card, resolves its effect, and discards the card.">Discard</span>
+                        </li>
+                        <li>
+                            <b>or</b> perform an action on your faction sheet.
+                        </li>
+                        <li>
+                            <b>or</b> perform an action on a technology card.
+                        </li>
+                        <li>
+                            <b>or</b> perform an action that you have access to elsewhere.
+                        </li>
+                    </ol>
+                </div>
+                <div id="passActionPanel">
+                    <p><i>You cannot pass until you have exhausted all of your strategy cards.</i></p>
+                    <p>You no longer take actions and must wait for the status phase.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="statusPhasePanel">
+            <ol>
+                <li>
+                    <b>Score objectives.</b> In initiative order each player can score up to one public objective and
+                    one secret objective.<br />
+                    <span
+                        data-tooltip="Place one of your control tokens on the card to indicate that you have scored it.">Control
+                        token</span>
+                    <span
+                        data-tooltip="A player cannot score public objectives if he does not control all of the planets in his home system.">Home
+                        planets</span>
+                    <span
+                        data-tooltip="A player cannot have more than three total scored and unscored secret objectives. If he draws a secret objective and has more than three, he must choose one of his unscored secret objectives and return it to the deck. Then, he shuffles the secret objective deck.">Limit
+                        of 3</span>
+                </li>
+                <li>
+                    <b>Reveal public objectives.</b> Speaker reveals the next public objective.<br />
+                    <span
+                        data-tooltip="The game can end early if no player has scored 10 victory points and there are no more objectives to reveal. When the speaker would reveal an objective but cannot, the game immediately ends and the player with the most victory points wins the game. If there is a tie, the player among the tied players who is earliest in initiative order wins the game.">Game
+                        over</span>
+                </li>
+                <li>
+                    <b>Draw action cards.</b> All players draw one action card.<br />
+                    <span
+                        data-tooltip="Each player can have a maximum of seven action cards in his hand. If a player exceeds this number, he must choose which seven cards he wishes to keep and discard the rest.">Maximum
+                        of 7</span>
+                </li>
+                <li>
+                    <b>Remove command tokens.</b> All players remove their command tokens from the map, into their
+                    reinforcements pile.
+                </li>
+                <li>
+                    <b>Gain and redistribute command tokens.</b> Every player gains two command tokens. Every player can
+                    redistribute their command tokens.
+                </li>
+                <li>
+                    <b>Ready cards.</b> Unexhaust all cards (planet, technology and strategy cards).
+                </li>
+                <li>
+                    <b>Repair units.</b> Make sure all units are facing up on the map.
+                </li>
+                <li>
+                    <b>Return strategy cards.</b> All players return their strategy cards.
+                </li>
+            </ol>
+        </div>
+
+        <div id="agendaPhasePanel">
+            <ol>
+                <li>
+                    <i>Skip this phase if Mecatol Rex is not owned by any player.</i>
+                </li>
+                <li>
+                    <b>Reveal agenda.</b> Reveal one agenda card from the top of the agenda deck.<br />
+                    <span data-tooltip="The speaker reads it out, including all possible outcomes.">Read</span>
+                </li>
+                <li>
+                    <b>Vote.</b> Starting after the speaker clockwise, all players can vote by exhausting their
+                    planets.<br />
+                    <span
+                        data-tooltip="To cast votes, a player exhausts any number of their planets and chooses an outcome. The number of votes cast for that outcome is equal to the combined influence values of the planets that the player exhausts.">Exhausting
+                        planets</span>
+                    <span
+                        data-tooltip="A player cannot cast votes for multiple outcomes of the same agenda. Each vote a player casts must be for the same outcome.">Single
+                        mindedness</span>
+                    <span data-tooltip="When electing a player, a player can cast votes for themselves.">Election</span>
+                    <span data-tooltip="A player may choose to abstain by not casting any votes.">Abstain</span>
+                    <span
+                        data-tooltip="During each vote, players may freely negotiate transactions with other players, even if they are not neighbours with those players. Each player may negotiate up to one transaction with each other player while resolving the vote for each agenda.">Transactions</span>
+                </li>
+                <li>
+                    <b>Resolve outcome.</b> Depending on the results of the vote, resolve the relevant outcome described
+                    on the card.<br />
+                    <span
+                        data-tooltip="If there is a tie for the outcome that received the most votes, or if no outcome receives any votes, the speaker decides which of the tied outcomes to resolve.">Ties</span>
+                    <span
+                        data-tooltip="When resolving a directive, players resolve the outcome that received the most votes and discard the agenda card immediately.">Directives</span>
+                    <span
+                        data-tooltip="When resolving a law, if a “For” outcome received the most votes, or if the law requires an election, the law’s effect becomes a permanent part of the game. Players resolve the outcome and place the agenda card in the common play area unless the effect specifies otherwise.">Laws</span>
+                </li>
+                <li>
+                    <b>Do it again.</b> Repeat steps 2 - 4, to resolve a second agenda card.
+                </li>
+                <li>
+                    <b>Ready planets.</b> Unexhaust all planets ready for the next round.
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
