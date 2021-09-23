@@ -28,6 +28,10 @@ function $names(name) {
     }
     return result;
 }
+function $class(name) {
+    var elements = document.getElementsByClassName(name);
+    return elements.length == 0 ? null : elements[0];
+}
 function $classes(name) {
     var result = [];
     var elements = document.getElementsByClassName(name);
@@ -152,9 +156,35 @@ function $selectMany(list, f) {
     }
     return result;
 }
-function $orderBy() {
+function $orderBy(list, f) {
+    return list.sort(function (a, b) {
+        var valueA = f(a);
+        var valueB = f(b);
+        if (valueA == valueB) {
+            return 0;
+        }
+        else if (valueA > valueB) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    });
 }
-function $orderByDescending() {
+function $orderByDescending(list, f) {
+    return list.sort(function (a, b) {
+        var valueA = f(a);
+        var valueB = f(b);
+        if (valueA == valueB) {
+            return 0;
+        }
+        else if (valueA < valueB) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    });
 }
 function $distinct(list, f) {
     var result = [];
@@ -823,12 +853,16 @@ var $Select = /** @class */ (function (_super) {
     $Select.prototype.values = function (values) {
         var oldValue = this.element.value;
         this.clear();
+        this.appendValues(values);
+        if (values.indexOf(oldValue) != -1) {
+            this.element.value = oldValue;
+        }
+        return this;
+    };
+    $Select.prototype.appendValues = function (values) {
         for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
             var value = values_1[_i];
             this.addItem(value, value);
-        }
-        if (values.indexOf(oldValue) != -1) {
-            this.element.value = oldValue;
         }
         return this;
     };
@@ -852,6 +886,10 @@ var $Select = /** @class */ (function (_super) {
         for (var i = 0; i <= options.length; i++) {
             options[i] = optionsArray[i];
         }
+        return this;
+    };
+    $Select.prototype.onChange = function (handler) {
+        this.element.addEventListener('change', handler, false);
         return this;
     };
     $Select.setOptions = function (element, options) {
@@ -923,23 +961,18 @@ var $TableRow = /** @class */ (function () {
     };
     return $TableRow;
 }());
-var roundNumber = 1;
 var topPanels = null;
 var actionPanels = null;
 var tacticalActionPanels = null;
 window.onload = function () {
-    $id('roundNumber').innerText = 'Round ' + roundNumber;
     topPanels = $asPanelsAuto('topPanels');
     actionPanels = $asPanelsAuto('actionPanels');
     tacticalActionPanels = $asPanelsAuto('tacticalActionPanels');
     hideAllPanels();
-    var previousRoundButton = $id('previousRoundButton');
-    previousRoundButton.addEventListener('click', function () {
-        changeRound(roundNumber - 1);
-    }, false);
-    var nextRoundButton = $id('nextRoundButton');
-    nextRoundButton.addEventListener('click', function () {
-        changeRound(roundNumber + 1);
+    var titleButton = $id('title');
+    titleButton.addEventListener('click', function () {
+        hideAllPanels();
+        document.body.style.backgroundColor = '#fff';
     }, false);
     var strategyButton = $id('strategyPhase');
     strategyButton.addEventListener('click', function () {
@@ -1026,10 +1059,4 @@ function hideAllPanels() {
     actionPanels.hideAll();
     tacticalActionPanels.hideAll();
     $id('tradeHints').style.display = 'none';
-}
-function changeRound(number) {
-    roundNumber = Math.max(1, number);
-    $id('roundNumber').innerText = 'Round ' + roundNumber;
-    hideAllPanels();
-    document.body.style.backgroundColor = '#fff';
 }
