@@ -28,10 +28,6 @@ function $names(name) {
     }
     return result;
 }
-function $class(name) {
-    var elements = document.getElementsByClassName(name);
-    return elements.length == 0 ? null : elements[0];
-}
 function $classes(name) {
     var result = [];
     var elements = document.getElementsByClassName(name);
@@ -969,9 +965,11 @@ window.onload = function () {
     actionPanels = $asPanelsAuto('actionPanels');
     tacticalActionPanels = $asPanelsAuto('tacticalActionPanels');
     hideAllPanels();
+    topPanels.showOnly('iconsPanel');
     var titleButton = $id('title');
     titleButton.addEventListener('click', function () {
         hideAllPanels();
+        topPanels.showOnly('iconsPanel');
         document.body.style.backgroundColor = '#fff';
     }, false);
     var strategyButton = $id('strategyPhase');
